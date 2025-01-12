@@ -1,49 +1,35 @@
-import pygame 
+import pygame
 from pygame.locals import*
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-def draw_line():
-    glBegin(GL_LINES)
-    glColor3f(1.0, 1.0, 1.0)  
-    glVertex2f(-0.5, 0.0)  
-    glVertex2f(0.5, 0.0)   
-    glEnd()
-def draw_triangle():
-    glBegin(GL_TRIANGLES)
-    glColor3f(0.0, 1.0, 0.0)  
-    glVertex2f(-0.5, -0.5)  
-    glVertex2f(0.5, -0.5)   
-    glVertex2f(0.0, 0.5)    
-    glEnd()
-def draw_point():
-    glBegin(GL_POINTS)
-    glColor3f(1.0, 0.0, 0.0)  
-    glVertex2f(0.0, 0.0)  
-    glEnd()
-pygame.init()
-Canvas = pygame.display.set_mode((500, 400)) 
-pygame.display.set_caption("main")
+import sys
+def draw_red_line(Canvas):
+def draw_shape(Canvas):
+    vertices = [(100, 200), (150, 100), (200, 200)]  # Coordinates for triangle
+    pygame.draw.polygon(Canvas, (0, 255, 0), vertices)  # Green triangle
+def draw_purple_point(Canvas):
+    pygame.draw.circle(Canvas, (128, 0, 128), (150, 150), 5)  # Purple point
+    pygame.draw.line(Canvas, (255, 0, 0), (50, 50), (250, 50), 3)
+def main():
+    
 
-glClearColor(0.0, 0.0, 0.0, 1.0)  
-glOrtho(-1, 1, -1, 1, -1, 1)
-glPointSize(5.0)
+    pygame.init()
+    Canvas = pygame.display.set_mode((500, 400))
+    pygame.display.set_caption("Canvas Example")
+    Canvas.fill((255, 255, 255))  # White background
+    running = True
+    
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_F1:
+                running = False
+        
+        pygame.display.flip()
+    
+    pygame.quit()
+    sys.exit()
 
-running=True
-Canvas.fill((255, 255, 255))
-running=True
 
-while not running: 
-    for event in pygame.event.get(): 
-        if event.type == KEYDOWN: 
-            running = False 
-        elif event.type == KEYDOWN:
-            if event.Key == K_F1:
-                print("F1")
-    glClear(GL_COLOR_BUFFER_BIT)
-    draw_line()
-    draw_triangle()
-    draw_point()
-    pygame.display.flip() 
-    pygame.time.wait=20
-pygame.quit() 
